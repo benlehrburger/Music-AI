@@ -1,6 +1,0 @@
-Support:
-
-If the program doesn't execute all the way through
-and doesn't return an error message, it may have
-something to do with a librosa/numba caching bug.
-Try running the program in an IDE like PyCharm.
