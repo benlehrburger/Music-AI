@@ -1,3 +1,8 @@
+# Author: Ben Lehrburger
+# Project: Music & AI
+# Script: Autotune an audio track to a given key
+# Adapted from: https://thewolfsound.com/how-to-auto-tune-your-voice-with-python/
+
 import warnings
 
 with warnings.catch_warnings():
@@ -61,12 +66,9 @@ def tune(audio, sr, correction_function):
     hop_length = frame_length // 4
 
     fmin = note_to_hz('C2')
-    #fmin = 65.41
-
     fmax = note_to_hz('C7')
-    #fmax = 2093
 
-    # Pitch tracking using the PYIN algorithm.
+    # Pitch tracking using the PYIN algorithm
     f0, voiced_flag, voiced_probabilities = pyin(audio,
                                                      frame_length=frame_length,
                                                      hop_length=hop_length,
@@ -74,27 +76,22 @@ def tune(audio, sr, correction_function):
                                                      fmin=fmin,
                                                      fmax=fmax)
 
-    # Apply the chosen adjustment strategy to the pitch.
     corrected_f0 = correction_function(f0)
 
-    # Pitch-shifting using the PSOLA algorithm.
+    # Pitch-shifting using the PSOLA algorithm
     return psola.vocode(audio, sample_rate=int(sr), target_pitch=corrected_f0, fmin=fmin, fmax=fmax)
 
 
-# Input: scale and filepath as strings
+# Main executable function
 def autotune(scale, inputData, inputSR):
 
-    # Load the audio file.
     y, sr = inputData, inputSR
 
-    # Only mono-files are handled. If stereo files are supplied, only the first channel is used.
     if y.ndim > 1:
         y = y[0, :]
 
-    # Pick the pitch adjustment strategy according to the arguments.
     correction_function = partial(map_closest_pitch, scale=scale)
 
-    # Perform the auto-tuning.
     pitch_corrected_y = tune(y, sr, correction_function)
 
     return pitch_corrected_y, sr
