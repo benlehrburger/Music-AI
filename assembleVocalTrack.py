@@ -1,3 +1,7 @@
+# Author: Ben Lehrburger
+# Project: Music & AI
+# Script: Compile a vocal track from MIDI data and output as .wav file
+
 import warnings
 
 with warnings.catch_warnings():
@@ -10,6 +14,7 @@ with warnings.catch_warnings():
     from librosa import effects
 
 
+# Shift a note's pitch based on distance from target pitch
 def pitch_shift(pitch_change, sample, sample_rate):
 
     if pitch_change > 0:
@@ -35,6 +40,7 @@ def pitch_shift(pitch_change, sample, sample_rate):
         return silent_output
 
 
+# Linearly decrease the volume of the end of a track
 def apply_fadeout(data, sr, proportional_fade=1.0):
 
     length_of_sample = len(data) / sr
@@ -48,6 +54,7 @@ def apply_fadeout(data, sr, proportional_fade=1.0):
     return data
 
 
+# Retrieve the next sample from the current vocal track
 def get_next_sample(sample_counter, samples):
 
     current_sample_index = sample_counter % len(samples)
@@ -59,6 +66,7 @@ def get_next_sample(sample_counter, samples):
     return sample_data, sample_rate, sample_length
 
 
+# Time stretch or compress a sample with Librosa
 def compress_or_expand(sample_length, note_duration, sample_data):
 
     rate_of_change = sample_length / note_duration
@@ -67,6 +75,7 @@ def compress_or_expand(sample_length, note_duration, sample_data):
     return time_modulated_sample
 
 
+# Cut a sample after a given duration
 def cut_off(note_duration, sample_rate, sample_data, proportional_fade=0.1):
 
     cutoff = int(note_duration * sample_rate)
@@ -76,6 +85,7 @@ def cut_off(note_duration, sample_rate, sample_data, proportional_fade=0.1):
     return time_modulated_sample
 
 
+# Map vocal samples to parsed MIDI data
 def assemble_vocal_track(track_data, samples, outputPath):
 
     track_keys = list(track_data.keys())
@@ -83,6 +93,7 @@ def assemble_vocal_track(track_data, samples, outputPath):
     melody_tracks = []
     sample_counter = 0
 
+    # Iterate over parsed MIDI messages
     for time_stamp, stamp_data in track_data.items():
 
         current_stamp_index = track_keys.index(time_stamp)
@@ -98,14 +109,17 @@ def assemble_vocal_track(track_data, samples, outputPath):
 
                 time_modulated_sample = None
 
+                # If the sample length and note length are close enough, little-to-no augmentation required
                 if abs(sample_length - note_duration) <= 0.1:
                     time_modulated_sample = compress_or_expand(sample_length, note_duration, sample_data)
 
                 else:
 
+                    # If the sample length is greater than the note length, cut the sample to the proper length
                     if sample_length > note_duration:
                         time_modulated_sample = cut_off(note_duration, sample_rate, sample_data)
 
+                    # If the sample length is less than the note length, fill the note length with as many samples as will fit
                     elif sample_length < note_duration:
 
                         greater_than_note = False
@@ -156,44 +170,19 @@ def assemble_vocal_track(track_data, samples, outputPath):
                 temp_output = tempfile.mktemp(suffix="wav")
                 wavfile.write(temp_output, int(sample_rate), time_modulated_sample)
                 output = AudioSegment.from_file_using_temporary_files(temp_output, frame_rate=sample_rate, channels=1)
+                
                 melody_tracks.append(output)
-
                 sample_counter += 1
 
+            # Fill gap between notes with silence
             if time_stamp + note_duration < next_stamp:
-
+                
                 time_void = next_stamp - (time_stamp + note_duration)
 
                 if time_void >= 0.8:
                     sample_counter = 0
-                    verse_samples = 0
-
-                # if time_void >= 5:
-                #
-                #     sample_counter = 0
-                #     leftover_samples = verse_samples % len(samples)
-                #
-                #     if leftover_samples != 0:
-                #
-                #         index = leftover_samples + silences_per_sample_iter
-                #         verse_track = verse_track[0:-index]
-                #         melody_tracks.append(verse_track)
-                #         verse_track = []
-                #         verse_samples = 0
-                #         silences_per_sample_iter = 0
-                #
-                #     else:
-                #
-                #         melody_tracks.append(verse_track)
-                #         verse_track = []
-                #         verse_samples = 0
-                #         silences_per_sample_iter = 0
 
                 silence = AudioSegment.silent(duration=time_void * 1000)
-
-                # if verse_samples % len(samples) == 0:
-                #     silences_per_sample_iter = 0
-
                 melody_tracks.append(silence)
 
         else:
