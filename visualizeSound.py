@@ -1,3 +1,7 @@
+# Author: Ben Lehrburger
+# Project: Music & AI
+# Script: Visualize the amplitude of a .wav file over time
+
 import warnings
 
 with warnings.catch_warnings():
