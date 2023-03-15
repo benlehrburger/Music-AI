@@ -31,7 +31,7 @@ while True:
         if input_file == 'example':
 
             backtrack_file_path = 'Audio Input/Example/backtrack.wav'
-            vocal_timestamps, vocal_key = bypass_parse(sample=2)
+            vocal_timestamps, vocal_key = bypass_parse()
             raw_input_sr, raw_input_data = wavfile.read('Audio Input/Example/raw_vocal_input.wav')
             print('Got input data from example')
 
