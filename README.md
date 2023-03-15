@@ -29,4 +29,5 @@ pip install -r Config/requirements.txt
 
 - TheWolfSound. (n.d.). How to Auto-Tune Your Voice with Python. Retrieved March 15, 2023, from https://thewolfsound.com/how-to-auto-tune-your-voice-with-python/
 - Kumar, A. (2019, September 6). Speech Recognition with Timestamps. Towards Data Science. Retrieved March 15, 2023, from https://towardsdatascience.com/speech-recognition-with-timestamps-934ede4234b2
+- Nishi, K. (2022, March 30). Torch Pitch Shift. GitHub. https://github.com/KentoNishi/torch-pitch-shift
 
