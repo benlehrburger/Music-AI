@@ -1,3 +1,7 @@
+# Author: Ben Lehrburger
+# Project: Music & AI
+# Script: Clean audio file data
+
 import warnings
 
 with warnings.catch_warnings():
@@ -9,7 +13,7 @@ with warnings.catch_warnings():
     import numpy as np
 
 
-# CLEAN AUDIO FILE NOISE
+# Reduce audio file noise
 def reduce_noise(inputFile):
 
     rate, data = wavfile.read(inputFile)
@@ -18,6 +22,7 @@ def reduce_noise(inputFile):
     wavfile.write(inputFile, rate, reduced_noise)
 
 
+# Normalize audio amplitude
 def normalize_sound(inputFile):
 
     raw_sound = AudioSegment.from_file(inputFile)
@@ -26,6 +31,7 @@ def normalize_sound(inputFile):
     normalized_sound.export(inputFile)
 
 
+# Convert audio data type from float to int
 def float2pcm(data, dtype='int16'):
 
     i = np.iinfo(dtype)
