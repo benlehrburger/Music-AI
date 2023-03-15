@@ -25,4 +25,8 @@ pip install -r Config/requirements.txt
 4) Run [execute.py](https://github.com/benlehrburger/musicAI/blob/main/execute.py)
 5) When prompted for names of your three input files (one at a time), input the <i>relative-path-to-your-file</i>
 
+# Code Cited
+
+- TheWolfSound. (n.d.). How to Auto-Tune Your Voice with Python. Retrieved March 15, 2023, from https://thewolfsound.com/how-to-auto-tune-your-voice-with-python/
+- Kumar, A. (2019, September 6). Speech Recognition with Timestamps. Towards Data Science. Retrieved March 15, 2023, from https://towardsdatascience.com/speech-recognition-with-timestamps-934ede4234b2
 
