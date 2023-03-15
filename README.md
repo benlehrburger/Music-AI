@@ -1,5 +1,9 @@
-# musicAI
-Map your own voice to AI-generated music tracks!
+# Music & AI
+Map your own voice to AI-generated music tracks! Final project submission for COSC 89.29 (Music & AI). Script is intended to be an augmentation tool used alongside other AI-generated music platforms like AIVA or Amper.
+
+# Quick Resources
+- [Input Examples](https://github.com/benlehrburger/musicAI/tree/main/Audio%20Input/Example)
+- [Output Examples](https://github.com/benlehrburger/musicAI/tree/main/Audio%20Output)
 
 # Set Up
 1) Download repository
@@ -20,3 +24,5 @@ pip install -r Config/requirements.txt
 3) Add your vocal melody file (.mid) to [Audio Input](https://github.com/benlehrburger/musicAI/tree/main/Audio%20Input) directory
 4) Run [execute.py](https://github.com/benlehrburger/musicAI/blob/main/execute.py)
 5) When prompted for names of your three input files (one at a time), input the <i>relative-path-to-your-file</i>
+
+
