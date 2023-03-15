@@ -1,3 +1,8 @@
+# Author: Ben Lehrburger
+# Project: Music & AI
+# Script: Pitch shifting with PyTorch
+# Adapted from: https://github.com/KentoNishi/torch-pitch-shift/blob/master/example.py
+
 import warnings
 
 with warnings.catch_warnings():
@@ -10,6 +15,7 @@ with warnings.catch_warnings():
     import tempfile
 
 
+# Convert audio data to tensor
 def to_tensor(sample):
 
     sample = np.reshape(sample, (sample.shape[0], 1))
@@ -25,6 +31,7 @@ def to_tensor(sample):
     return sample, dtype
 
 
+# Shift up to target pitch
 def shift_up(s, sr, dtype, num):
 
     up = pitch_shift(s, num, sr)
@@ -38,6 +45,7 @@ def shift_up(s, sr, dtype, num):
     return shifted_output
 
 
+# Shift down to target pitch
 def shift_down(s, sr, dtype, num):
 
     down = pitch_shift(s, num, sr)
