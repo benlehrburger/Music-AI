@@ -1,3 +1,7 @@
+# Author: Ben Lehrburger
+# Project: Music & AI
+# Script: Main executable function
+
 import warnings
 
 with warnings.catch_warnings():
