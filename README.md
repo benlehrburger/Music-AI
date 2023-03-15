@@ -19,4 +19,4 @@ pip install -r Config/requirements.txt
 2) Add your backtrack file (.wav/.mp3) to [Audio Input](https://github.com/benlehrburger/musicAI/tree/main/Audio%20Input) directory
 3) Add your vocal melody file (.mid) to [Audio Input](https://github.com/benlehrburger/musicAI/tree/main/Audio%20Input) directory
 4) Run [execute.py](https://github.com/benlehrburger/musicAI/blob/main/execute.py)
-5) When prompted for names of your three input files (one at a time), input <i>relative-path-to-your-file</i>
+5) When prompted for names of your three input files (one at a time), input the <i>relative-path-to-your-file</i>
