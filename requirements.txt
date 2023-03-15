@@ -1,0 +1,12 @@
+scipy
+librosa
+pydub
+sounddevice
+psola
+numpy
+mido
+torch-pitch-shift
+noisereduce
+wave
+vosk
+numba
