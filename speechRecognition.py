@@ -1,3 +1,7 @@
+# Author: Ben Lehrburger
+# Project: Music & AI
+# Script: Split audio file into individual words
+
 import warnings
 
 with warnings.catch_warnings():
@@ -10,6 +14,7 @@ with warnings.catch_warnings():
     import os
 
 
+# Retrieve the timestamps at which words occur in an audio file
 def get_vocal_timestamps(wav_path):
 
     SetLogLevel(-1)
@@ -45,6 +50,7 @@ def get_vocal_timestamps(wav_path):
     return structured_data, words
 
 
+# Split an audio file at the timestamps of word onset and offset
 def recognition_split(inputPath):
 
     word_timestamps = get_vocal_timestamps(inputPath)[0]
